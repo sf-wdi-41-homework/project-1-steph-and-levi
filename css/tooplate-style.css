@@ -959,4 +959,11 @@ body.lb-disable-scrolling {
 	footer ul {
 		float: none;
 	}
-}
+
+  .login{
+    text-align: center;
+  }
+
+  #login{
+    text-align: center;
+  }
