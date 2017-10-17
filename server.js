@@ -5,6 +5,9 @@ var bodyParser = require('body-parser');
 // add the body-parser middleware to the server
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// serve the public directory as a static file directory
+app.use(express.static('public'));
+
 //require the models directory in server.js
 // var db = require('./models');
 
