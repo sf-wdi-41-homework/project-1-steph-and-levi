@@ -34,15 +34,15 @@ app.get('/', function(req, res){
   res.sendFile('views/index.html' , { root : __dirname});
 })
 
-app.get('/login.html', function(req, res){
+app.get('/login', function(req, res){
   res.sendFile('views/login.html' , { root : __dirname});
 })
 
-app.get('/sign-up.html', function(req, res){
+app.get('/sign-up', function(req, res){
   res.sendFile('views/sign-up.html' , { root : __dirname});
 })
 
-app.get('/loggedin.html', function(req, res){
+app.get('/loggedin', function(req, res){
   res.sendFile('views/loggedin.html', { root : __dirname});
 })
 
