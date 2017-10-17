@@ -41,6 +41,10 @@ app.get('/sign-up.html', function(req, res){
   res.sendFile('views/sign-up.html' , { root : __dirname});
 })
 
+app.get('/logged-in', function(req, res){
+  res.sendFile('views/loggedin.html', { root : __dirname});
+})
+
 //TODO: JSON api endpoints
 
 app.get('/api/ideas', function(req, res){
@@ -54,6 +58,7 @@ app.get('/api/ideas/:id', function(req, res){
   var selection = ideasArray[index] || 'sorry, idea not found'
   res.send(selection)
 })
+
 
 // app.post('/api/ideas' function(req, res){
 //   console.log("in api/ideas post function")
