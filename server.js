@@ -10,7 +10,20 @@ app.use(express.static('public'));
 
 //require the models directory in server.js
 // var db = require('./models');
-
+var ideasArray = [
+  {
+    title: 'pie delivery service',
+    description: 'pie on command! Have a fresh pie delivered to your door within 2hrs.'
+  },
+  {
+    title: 'hydration app',
+    description: 'an app that syncs with your google calendar and reminds you to drink your daily water requirement'
+  },
+  {
+    title: 'give me the science',
+    description: 'an app that fundraises for access to publicly-funded scientific journals and sends you 3 articles weekly'
+  }
+]
 
 //HTML endpoints
 app.get('/', function(req, res){
