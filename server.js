@@ -16,6 +16,15 @@ app.use(express.static('public'));
 app.get('/', function(req, res){
   res.sendFile('views/index.html' , { root : __dirname});
 })
+
+app.get('/login.html', function(req, res){
+  res.sendFile('views/login.html' , { root : __dirname});
+})
+
+app.get('/sign-up.html', function(req, res){
+  res.sendFile('views/sign-up.html' , { root : __dirname});
+})
+
 //TODO: JSON api endpoints
 
 // listen on port 3000
