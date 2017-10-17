@@ -1,3 +1,4 @@
+
 *, *::after, *::before {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -128,7 +129,9 @@ img {
 }
 
 /* --------------------------------
+
 Slider
+
 -------------------------------- */
 .cd-hero {
   position: relative;
@@ -188,7 +191,9 @@ Slider
 }
 
 /* --------------------------------
+
 Single slide style
+
 -------------------------------- */
 .cd-hero-slider li {
   background-position: center center;
@@ -360,7 +365,9 @@ Single slide style
 }
 
 /* --------------------------------
+
 Single slide animation
+
 -------------------------------- */
 @media only screen and (min-width: 768px) {
   .cd-hero-slider .cd-half-width {
@@ -465,7 +472,9 @@ Single slide animation
   }
 }
 /* --------------------------------
+
 Slider navigation
+
 -------------------------------- */
 .cd-slider-nav {
   display: none;
@@ -618,7 +627,9 @@ Slider navigation
 }
 
 /* --------------------------------
+
 Main content
+
 -------------------------------- */
 .cd-main-content {
   width: 90%;
@@ -642,7 +653,9 @@ Main content
 }
 
 /* --------------------------------
+
 Javascript disabled
+
 -------------------------------- */
 .no-js .cd-hero-slider li {
   display: none;
@@ -654,7 +667,6 @@ Javascript disabled
 .no-js .cd-slider-nav {
   display: none;
 }
-
 
 input[type=email], textarea {
     width: 100%;
