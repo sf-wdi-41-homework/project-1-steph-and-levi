@@ -8,8 +8,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // serve the public directory as a static file directory
 app.use(express.static('public'));
 
-//require the models directory in server.js
-// var db = require('./models');
+// require the models directory in server.js
+var db = require('./models');
+
 var ideasArray = [
   {
     title: 'pie delivery service',
