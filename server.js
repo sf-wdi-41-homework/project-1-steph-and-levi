@@ -13,15 +13,18 @@ app.use(express.static('public'));
 var ideasArray = [
   {
     title: 'pie delivery service',
-    description: 'pie on command! Have a fresh pie delivered to your door within 2hrs.'
+    description: 'pie on command! Have a fresh pie delivered to your door within 2hrs.',
+    id: 1
   },
   {
     title: 'hydration app',
-    description: 'an app that syncs with your google calendar and reminds you to drink your daily water requirement'
+    description: 'an app that syncs with your google calendar and reminds you to drink your daily water requirement',
+    id: 2
   },
   {
     title: 'give me the science',
-    description: 'an app that fundraises for access to publicly-funded scientific journals and sends you 3 articles weekly'
+    description: 'an app that fundraises for access to publicly-funded scientific journals and sends you 3 articles weekly',
+    id: 3
   }
 ]
 
@@ -39,6 +42,25 @@ app.get('/sign-up.html', function(req, res){
 })
 
 //TODO: JSON api endpoints
+
+app.get('/api/ideas', function(req, res){
+  console.log('in api/ideas route function')
+  res.send(ideasArray)
+});
+
+app.get('/api/ideas/:id', function(req, res){
+  console.log('in api/ideas/:id route function')
+  var index = req.params.id;
+  var selection = ideasArray[index] || 'sorry, idea not found'
+  res.send(selection)
+})
+
+// app.post('/api/ideas' function(req, res){
+//   console.log("in api/ideas post function")
+//   console.log(req.body)
+//   res.send(req.body)
+// })
+
 
 // listen on port 3000
 app.listen(3000, function() {
