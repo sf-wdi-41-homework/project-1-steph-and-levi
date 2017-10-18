@@ -12,6 +12,26 @@ var session        = require('express-session');
 var methodOverride = require('method-override');
 // add the body-parser middleware to the server
 app.use(bodyParser.urlencoded({ extended: true }));
+// Setup middleware
+app.use(morgan('dev'));
+app.use(cookieParser());
+// app.use(bodyParser());
+app.use(ejsLayouts);
+// app.use(express.static(__dirname + '/public'));
+// use express.session() before passport.session() to ensure that the login session is restored in the correct order
+app.use(session({ secret: 'WDI-GENERAL-ASSEMBLY-EXPRESS' }));
+// passport.initialize() middleware is required to initialize Passport.
+app.use(passport.initialize());
+// If your application uses persistent login sessions, passport.session()
+app.use(passport.session());
+app.use(flash());
+app.use(methodOverride(function(request, response) {
+  if(request.body && typeof request.body === 'object' && '_method' in request.body) {
+    var method = request.body._method;
+    delete request.body._method;
+    return method;
+  }
+}));
 
 // serve the public directory as a static file directory
 app.use(express.static('public'));
@@ -19,6 +39,9 @@ app.use(express.static('public'));
 // require the models directory in server.js
 var db = require('./models');
 
+//express settings
+app.set('view engine', 'ejs');
+//hardcoded data for playing with
 var ideasArray = [
   {
     title: 'pie delivery service',
@@ -85,14 +108,6 @@ app.post('/loggedin', function(req, res){
     res.json(inputIdea)
   })
 })
-
-//TODO: WIP
-// app.post('/api/ideas' function(req, res){
-//   console.log("in api/ideas post function")
-//   console.log(req.body)
-//   res.send(req.body)
-// })
-
 
 // listen on port 3000
 app.listen(3000, function() {
