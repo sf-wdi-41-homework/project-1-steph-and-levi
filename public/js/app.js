@@ -1,7 +1,7 @@
 $(document).ready(function() {
     console.log('app.js loaded!');
 
-
+    //get all db seed ideas and render to loggedin page
     $.ajax({
         method: 'GET',
         url: '/api/ideas',
