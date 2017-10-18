@@ -45,7 +45,9 @@ function renderIdea(ideaData){
 }
 function onSuccess(json) {
     console.log(json);
-
+    json.forEach(function(ideas){
+      renderIdea(ideas)
+    })
 }
 
 function onError(xhr, status, errorThrown) {
