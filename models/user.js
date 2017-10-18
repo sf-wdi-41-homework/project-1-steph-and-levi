@@ -2,11 +2,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var Idea = require('./idea.js')
 var bcrypt   = require('bcrypt-nodejs');
+var Idea = require('./idea')
 
 var UserSchema = new Schema ({
   username: String,
-  password: String //TODO: establish secure db password settings
-  // ideas: [ {title: "best idea", description: "coolest idea"} ]
+  password: String, //TODO: establish secure db password settings
+  ideas: [ Idea.schema ]
   // favorites: [ favArray ] //TODO: create favorites model
 })
 
