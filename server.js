@@ -48,7 +48,7 @@ app.get('/loggedin', function(req, res){
 })
 
 //TODO: JSON api endpoints
-
+//view all IDEAS from the db on an api route
 app.get('/api/ideas', function(req, res){
   console.log('in api/ideas route function')
   db.Idea.find({}, function(err, allIdeas){
