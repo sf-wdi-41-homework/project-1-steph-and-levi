@@ -2,7 +2,14 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-
+//set-up user auth
+var passport       = require('passport');
+var flash          = require('connect-flash');
+var ejsLayouts     = require("express-ejs-layouts");
+var morgan         = require('morgan');
+var cookieParser   = require('cookie-parser');
+var session        = require('express-session');
+var methodOverride = require('method-override');
 // add the body-parser middleware to the server
 app.use(bodyParser.urlencoded({ extended: true }));
 
