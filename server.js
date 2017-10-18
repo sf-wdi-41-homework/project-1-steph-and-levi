@@ -51,7 +51,10 @@ app.get('/loggedin', function(req, res){
 
 app.get('/api/ideas', function(req, res){
   console.log('in api/ideas route function')
-  res.send(ideasArray)
+  db.Idea.find({}, function(err, allIdeas){
+    if(err){ console.log('there was an error getting ideas', err); }
+    res.json(allIdeas)
+  })
 });
 
 app.get('/api/ideas/:id', function(req, res){
@@ -59,6 +62,13 @@ app.get('/api/ideas/:id', function(req, res){
   var index = req.params.id;
   var selection = ideasArray[index] || 'sorry, idea not found'
   res.send(selection)
+})
+
+app.get('/loggedin', function(req, res){
+  //get all db seed ideas and render to loggedin page
+  db.Idea.find({}, function(err, allIdeas){
+    res.json(allIdeas)
+  })
 })
 
 app.post('/loggedin', function(req, res){
