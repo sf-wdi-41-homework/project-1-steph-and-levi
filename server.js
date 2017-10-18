@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
 // add the body-parser middleware to the server
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -60,7 +61,15 @@ app.get('/api/ideas/:id', function(req, res){
   res.send(selection)
 })
 
+app.post('/loggedin', function(req, res){
+  var inputIdea = req.body;
+  db.Idea.create(inputIdea, function(err, idea){
+    if(err) {console.log('error', err);}
+    res.json(inputIdea)
+  })
+})
 
+//TODO: WIP
 // app.post('/api/ideas' function(req, res){
 //   console.log("in api/ideas post function")
 //   console.log(req.body)
