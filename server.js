@@ -71,17 +71,17 @@ app.get('/api/ideas/:id', function(req, res){
 // app.get('/loggedin', function(req, res){
 //   //get all db seed ideas and render to loggedin page
 //   db.Idea.find({}, function(err, allIdeas){
-//     res.json(allIdeas)
+//     res.send(allIdeas)
 //   })
 // })
-//
-// app.post('/loggedin', function(req, res){
-//   var inputIdea = req.body;
-//   db.Idea.create(inputIdea, function(err, idea){
-//     if(err) {console.log('error', err);}
-//     res.json(inputIdea)
-//   })
-// })
+
+app.post('/loggedin', function(req, res){
+  var inputIdea = req.body;
+  db.Idea.create(inputIdea, function(err, idea){
+    if(err) {console.log('error', err);}
+    res.json(inputIdea)
+  })
+})
 // Express settings
 app.set('view engine', 'ejs');
 app.set("views", __dirname + "/views");
