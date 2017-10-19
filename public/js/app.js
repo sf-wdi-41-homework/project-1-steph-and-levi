@@ -52,6 +52,9 @@ $(document).ready(function() {
 
     })
 });
+
+
+
 function renderIdea(ideaData){
     console.log(ideaData)
     $(".ideaSpace").prepend(`
@@ -71,7 +74,6 @@ function renderIdea(ideaData){
                   </div>
               </div>
           </div>
-
     </div>`);
 
 }
