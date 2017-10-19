@@ -11,6 +11,8 @@ var cookieParser   = require('cookie-parser');
 var session        = require('express-session');
 var methodOverride = require('method-override');
 
+
+
 // Setup middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
@@ -33,19 +35,8 @@ app.use(methodOverride(function(request, response) {
 }));
 
 
-// Express settings
-app.set('view engine', 'ejs');
-app.set("views", __dirname + "/views");
 
-require('./config/passport')(passport);
 
-var routes = require(__dirname + "/config/routes");
-app.use(routes);
-
-app.use(function(req, res, next){
-  global.currentUser = req.user;
-  next();
-});
 
 // HTML endpoints
 // app.get('/', function(req, res){
@@ -91,7 +82,19 @@ app.get('/api/ideas/:id', function(req, res){
 //     res.json(inputIdea)
 //   })
 // })
+// Express settings
+app.set('view engine', 'ejs');
+app.set("views", __dirname + "/views");
 
+require('./config/passport')(passport);
+
+app.use(function(req, res, next){
+  global.currentUser = req.user;
+  next();
+});
+
+var routes = require(__dirname + "/config/routes");
+app.use(routes);
 
 
 // listen on port 3000
