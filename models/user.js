@@ -3,15 +3,16 @@ var Schema = mongoose.Schema;
 var Idea = require('./idea.js')
 var bcrypt   = require('bcrypt-nodejs');
 var Idea = require('./idea')
+var Like = require('./like')
 
 var UserSchema = new Schema ({
   name: String,
   local: {
     email: String,
-    password: String, //TODO: establish secure db password settings
+    password: String,
   },
-  ideas: [ Idea.schema ]
-  // favorites: [ favArray ] //TODO: create favorites model
+  ideas: [ Idea.schema ],
+  favorites: [ Like.schema ]
 })
 
 UserSchema.statics.encrypt = function(password){
