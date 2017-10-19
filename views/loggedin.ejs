@@ -1,0 +1,35 @@
+<% if(currentUser){ %>
+  Hello, <%= currentUser.email %>
+  <% } %>
+    <div id="about" class="page-section">
+        <div class="container">
+            <div class="section-heading">
+                <h4>Create An Idea</h4>
+                <div class="line-dec"></div>
+            </div>
+            <div class="containerForm">
+                <form class="idea-form" action="/loggedin" method="POST">
+                    <input type="text" id="fname" name="title" placeholder="Name of Idea" required>
+                    <textarea name="description" cols="40" rows="5" placeholder="Description of Idea" required></textarea>
+
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="section-heading">
+        <h4>Browse Others Ideas</h4>
+        <div class="line-dec"></div>
+    </div>
+
+
+
+    <div class="ideaSpace">
+
+    </div>
+
+
+
+

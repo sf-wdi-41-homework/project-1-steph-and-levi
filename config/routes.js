@@ -25,7 +25,7 @@ function unAuthenticatedUser(req, res, next) {
 router.route('/')
   .get(staticsController.home);
 
-router.route('/signup')
+router.route('/sign-up')
   .get(unAuthenticatedUser, usersController.getSignup)
   .post(usersController.postSignup)
 
@@ -36,8 +36,8 @@ router.route('/login')
 router.route("/logout")
   .get(usersController.getLogout)
 
-router.route("/secret")
-  .get(authenticatedUser, usersController.getSecret)
+router.route("/loggedin")
+  .get(authenticatedUser, usersController.getLoggedIn)
 
 module.exports = router
 

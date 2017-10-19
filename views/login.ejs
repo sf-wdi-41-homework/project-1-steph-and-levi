@@ -1,0 +1,12 @@
+<% if(message.length > 0){ %>
+  <p class='warn'><%= message %></p>
+<% } %>
+<div class="containerForm">
+  <h1>Login</h1>
+    <form class="login-form" action="/login" method="POST">
+      <input type="email" id="fname" name="email" placeholder="Email Address">
+      <input type="password" id="lname" name="password" placeholder="Password">
+      <input type="submit" value="Login">
+    </form>
+    <p>Don't have an account? Click <a href="/sign-up">here</a> to sign up</p>
+  </div>

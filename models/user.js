@@ -5,8 +5,11 @@ var bcrypt   = require('bcrypt-nodejs');
 var Idea = require('./idea')
 
 var UserSchema = new Schema ({
-  username: String,
-  password: String, //TODO: establish secure db password settings
+  name: String,
+  local: {
+    email: String,
+    password: String, //TODO: establish secure db password settings
+  },
   ideas: [ Idea.schema ]
   // favorites: [ favArray ] //TODO: create favorites model
 })

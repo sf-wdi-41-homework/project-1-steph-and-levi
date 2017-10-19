@@ -1,5 +1,5 @@
 var LocalStrategy = require( "passport-local" ).Strategy;
-var User = require( "../models/user" );
+var db = require( "../models" );
 
 module.exports = function ( passport ) {
 
@@ -8,7 +8,7 @@ module.exports = function ( passport ) {
   } );
 
   passport.deserializeUser( function ( id, done ) {
-    User.findById( id, function ( err, user ) {
+   db.User.findById( id, function ( err, user ) {
       // If a user is found it will be assigned to req.user
       done( err, user );
     } )
@@ -19,9 +19,10 @@ module.exports = function ( passport ) {
     passwordField: "password",
     passReqToCallback: true,
   }, function ( req, email, password, done ) {
+    console.log("\NSIGNING UP USER \N")
 
     // Find a user with this email
-    User.findOne( { 'local.email': email }, function ( err, user ) {
+   db.User.findOne( { 'local.email': email }, function ( err, user ) {
       if ( err ) return done( err );
 
       // If there is a user with this email
@@ -29,12 +30,13 @@ module.exports = function ( passport ) {
         return done( null, false, req.flash( 'errorMessage', 'This email is already used!' ) );
       } else {
 
-        var newUser = new User();
+        var newUser = new db.User();
         newUser.local.email = email;
-        newUser.local.password = User.encrypt( password );
+        newUser.local.password =db.User.encrypt( password );
 
         newUser.save( function ( err, user ) {
           if ( err ) return done( err );
+          console.log("\nHAPPY!  A USERE!\n");
           return done( null, user );
         } );
       }
@@ -46,9 +48,10 @@ module.exports = function ( passport ) {
     passwordField: "password",
     passReqToCallback: true
   }, function ( req, email, password, done ) {
+    console.log("\nTRYING TO LOG IN\n");
 
     // Search for a use with this email
-    User.findOne( { 'local.email': email }, function ( err, user ) {
+   db.User.findOne( { 'local.email': email }, function ( err, user ) {
       if ( err ) return done( err );
 
       // If no user is found
@@ -56,7 +59,7 @@ module.exports = function ( passport ) {
 
       // Check if the password is correct
       if ( !user.validPassword( password ) ) return done( null, false, req.flash( 'errorMessage', 'Oops wrong password!' ) );
-
+      console.log("\nUSER LOGGED IN\n");
       return done( null, user );
     } );
 

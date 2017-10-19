@@ -11,10 +11,6 @@ var cookieParser   = require('cookie-parser');
 var session        = require('express-session');
 var methodOverride = require('method-override');
 
-// Setup database
-var databaseURL = 'mongodb://localhost/local-authentication-with-passport'
-mongoose.connect(databaseURL);
-
 // Setup middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
@@ -36,32 +32,34 @@ app.use(methodOverride(function(request, response) {
   }
 }));
 
-// require the models directory in server.js
-// var db = require('./models');
 
 // Express settings
 app.set('view engine', 'ejs');
-app.set("views", __dirname + "/views2");
+app.set("views", __dirname + "/views");
+
+require('./config/passport')(passport);
+
 var routes = require(__dirname + "/config/routes");
 app.use(routes);
+
+app.use(function(req, res, next){
+  global.currentUser = req.user;
+  next();
+});
 
 // HTML endpoints
 // app.get('/', function(req, res){
 //   res.sendFile('views/index.html' , { root : __dirname});
 // })
 
-app.get('/login', function(req, res){
-  res.sendFile('views/login.html' , { root : __dirname});
-})
 
-app.get('/sign-up', function(req, res){
-  res.sendFile('views/sign-up.html' , { root : __dirname});
-})
 
-app.get('/loggedin', function(req, res){
-  res.sendFile('views/loggedin.html', { root : __dirname});
-})
 
+// app.get('/loggedin', function(req, res){
+//   res.sendFile('views/loggedin.html', { root : __dirname});
+// })
+
+var db = require('./models')
 //TODO: JSON api endpoints
 //view all IDEAS from the db on an api route
 app.get('/api/ideas', function(req, res){
@@ -79,20 +77,21 @@ app.get('/api/ideas/:id', function(req, res){
   res.send(selection)
 })
 
-app.get('/loggedin', function(req, res){
-  //get all db seed ideas and render to loggedin page
-  db.Idea.find({}, function(err, allIdeas){
-    res.json(allIdeas)
-  })
-})
+// app.get('/loggedin', function(req, res){
+//   //get all db seed ideas and render to loggedin page
+//   db.Idea.find({}, function(err, allIdeas){
+//     res.json(allIdeas)
+//   })
+// })
+//
+// app.post('/loggedin', function(req, res){
+//   var inputIdea = req.body;
+//   db.Idea.create(inputIdea, function(err, idea){
+//     if(err) {console.log('error', err);}
+//     res.json(inputIdea)
+//   })
+// })
 
-app.post('/loggedin', function(req, res){
-  var inputIdea = req.body;
-  db.Idea.create(inputIdea, function(err, idea){
-    if(err) {console.log('error', err);}
-    res.json(inputIdea)
-  })
-})
 
 
 // listen on port 3000

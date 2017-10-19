@@ -2,14 +2,16 @@ var passport = require("passport")
 
 // GET /signup
 function getSignup(req, res) {
-  res.render('signup', { message: req.flash('errorMessage') })
+  res.render('sign-up', { message: req.flash('errorMessage') })
 }
 
 // POST /signup
 function postSignup(req, res) {
+  console.log(req.body);
+  console.log("\nPOST HIT\n");
   var signupStrategy = passport.authenticate('local-signup', {
     successRedirect: "/",
-    failureRedirect: "/signup",
+    failureRedirect: "/sign-up",
     failureFlash: true
   });
 
@@ -24,7 +26,7 @@ function getLogin(req, res) {
 // POST /login
 function postLogin(req, res) {
   var loginStrategy = passport.authenticate('local-login', {
-    successRedirect: "/",
+    successRedirect: "/loggedin",
     failureRedirect: "/login",
     failureFlash: true
   });
@@ -39,8 +41,8 @@ function getLogout(req, res) {
 }
 
 // Restricted page
-function getSecret(req, res){
-  res.render("secret");
+function getLoggedIn(req, res){
+  res.render("loggedin");
 }
 
 module.exports = {
@@ -49,5 +51,5 @@ module.exports = {
   getSignup: getSignup,
   postSignup: postSignup,
   getLogout: getLogout,
-  getSecret: getSecret
+  getLoggedIn: getLoggedIn
 }
