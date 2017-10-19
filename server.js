@@ -61,6 +61,7 @@ app.get('/api/ideas', function(req, res){
   })
 });
 
+//Get an idea
 app.get('/api/ideas/:id', function(req, res){
   console.log('in api/ideas/:id route function')
   var index = req.params.id;
@@ -68,18 +69,20 @@ app.get('/api/ideas/:id', function(req, res){
   res.send(selection)
 })
 
-// app.get('/loggedin', function(req, res){
-//   //get all db seed ideas and render to loggedin page
-//   db.Idea.find({}, function(err, allIdeas){
-//     res.send(allIdeas)
-//   })
-// })
-
+//Create an idea
 app.post('/loggedin', function(req, res){
   var inputIdea = req.body;
   db.Idea.create(inputIdea, function(err, idea){
     if(err) {console.log('error', err);}
-    res.json(inputIdea)
+    res.json(idea)
+  })
+})
+//Delete an idea
+app.delete('/api/ideas/:id', function(req, res){
+  console.log('want to delete an idea!')
+  db.Idea.findByIdAndRemove(req.params.id, function(err, deletedIdea){
+    if(err) {console.log('error deleting idea', err);}
+    res.json(deletedIdea)
   })
 })
 // Express settings
