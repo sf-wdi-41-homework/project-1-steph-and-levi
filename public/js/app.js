@@ -23,7 +23,7 @@ $(document).ready(function() {
         $(this).trigger("reset");
     });
 
-
+    $('.ideaSpace').on('click', '.edit', handleIdeaEditClick);
 
     $(".ideaSpace").on('click', ".delete", function(e){
       var result = confirm("Want to delete?");
@@ -59,7 +59,24 @@ $(document).ready(function() {
     })
 });
 
+function handleIdeaEditClick(ideaUpdate){
+  console.log("you clicked edit!")
+  console.log(this)
+  var $idea = $(this).closest('#fun-facts')
+  var $ideaId = $idea.data('idea-id')
+  console.log($ideaId)
+  //display save-idea and cancel-edit buttons
+  $idea.find(".save-idea").toggleClass('hidden');
+  $idea.find('.cancel-edit').toggleClass('hidden');
+  //hide edit, like and delete buttons
+  $idea.find('.edit').toggleClass('hidden');
+  $idea.find('.like').toggleClass('hidden');
+  $idea.find('.delete').toggleClass('hidden');
 
+
+
+
+}
 
 function renderIdea(ideaData){
     console.log(ideaData)
@@ -70,12 +87,14 @@ function renderIdea(ideaData){
                   <div id="fun-facts" data-idea-id=${ideaData._id}>
                           <div id="idea">
                          <h4>Name:</h4>
-                          <p id="singleIdea">${ideaData.title}</p>
+                          <p class="title">${ideaData.title}</p>
                           <h4>Description:</h4>
-                          <p id="singleIdea">${ideaData.description}</p>
-                          <button type="button" class="btn button like">Like</button>
-                          <button type="button" class="btn button edit">Edit Post</button>
-                          <button type="button" class="btn button delete">Delete</button>
+                          <p class="description">${ideaData.description}</p>
+                          <button type="button" class="btn btn-primary like">Like</button>
+                          <button type="button" class="btn btn-info edit">Edit Post</button>
+                          <button type="button" class="btn btn-primary">Delete</button>
+                          <button type="button" class='btn btn-info save-idea hidden'>Save Changes</button>
+                          <button type="button" class='btn btn-danger cancel-edit hidden'>Cancel</button>
 
                           </div>
                   </div>

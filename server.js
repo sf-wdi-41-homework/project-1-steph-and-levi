@@ -77,6 +77,20 @@ app.post('/loggedin', function(req, res){
     res.json(idea)
   })
 })
+
+//Update an idea
+app.put('/api/ideas/:id', function(req, res){
+  db.Idea.findById(req.params.id, function(err, foundIdea){
+    if(err) { console.log('error updating idea', err); }
+    foundIdea.title = req.body.title;
+    foundIdea.description = req.body.description;
+    foundIdea.save(function(err, savedIdea){
+      if(err) { console.log("error saving idea", err); }
+      res.json(savedIdea);
+    })
+
+  })
+})
 //Delete an idea
 app.delete('/api/ideas/:id', function(req, res){
   console.log('want to delete an idea!')
