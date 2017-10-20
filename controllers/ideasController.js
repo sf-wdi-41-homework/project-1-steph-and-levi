@@ -11,9 +11,13 @@ function index(req, res){
 
 // create an idea
 function create(req, res){
+  //get current user id
+  //create new idea
   var inputIdea = req.body;
   db.Idea.create(inputIdea, function(err, idea){
     if(err) {console.log('error', err);}
+    //push new idea into user db
+    //save the user
     res.json(idea)
   })
 }
