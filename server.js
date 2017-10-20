@@ -34,16 +34,11 @@ app.use(methodOverride(function(request, response) {
   }
 }));
 
-// HTML endpoints
-// app.get('/', function(req, res){
-//   res.sendFile('views/index.html' , { root : __dirname});
-// })
-
 // Require the models directory in server.js
 var db = require('./models')
 var controllers = require('./controllers')
-//ROUTES
 
+//ROUTES!!!
 //JSON api endpoints
 
 //view all IDEAS from the db on an api route
