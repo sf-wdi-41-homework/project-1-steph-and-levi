@@ -24,6 +24,8 @@ $(document).ready(function() {
     });
 
     $('.ideaSpace').on('click', '.edit', handleIdeaEditClick);
+    $('.ideaSpace').on('click', '.save-idea', handleIdeaSaveClick);
+
 
     $(".ideaSpace").on('click', ".delete", function(e){
       var result = confirm("Want to delete?");
@@ -72,10 +74,46 @@ function handleIdeaEditClick(ideaUpdate){
   $idea.find('.edit').toggleClass('hidden');
   $idea.find('.like').toggleClass('hidden');
   $idea.find('.delete').toggleClass('hidden');
+  // get idea title and replace its field with an input element
+  var ideaTitle = $idea.find(".title").text();
+  console.log(ideaTitle)
+  $idea.find('p.title').html('<input class="edit-idea-title" value="' + ideaTitle + '"></input>');
+  //get idea description and replace its field with an input element
+  var ideaDesc = $idea.find('.description').text();
+  $idea.find('p.description').html('<input class="edit-idea-description" value="' + ideaDesc + '"></input>');
+}
+function handleIdeaSaveClick() {
+  console.log(this)
+  var $idea = $(this).closest('#fun-facts')
+  console.log($idea)
+  // console.log(this).closest('#fun-facts').data('idea-id');
+  var ideaId = $($idea).data('idea-id');
+  console.log(ideaId)
+  var $idea = $('[data-idea-id=' + ideaId + ']');
 
+  var data = {
+    title: $idea.find('.edit-idea-title').val(),
+    description: $idea.find('.edit-idea-description').val(),
+  };
 
+  console.log('PUTing data for idea', $idea, 'with data', data);
 
+  $.ajax({
+    method: 'PUT',
+    url: '/api/ideas/' + ideaId,
+    data: data,
+    success: handleIdeaUpdatedResponse
+  });
+}
 
+function handleIdeaUpdatedResponse(data) {
+  console.log('response to update', data);
+
+  var ideaId = data._id;
+
+  // remove this album from the page, re-draw with updated data
+  $('[data-idea-id=' + ideaId + ']').remove();
+  renderIdea(data);
 }
 
 function renderIdea(ideaData){
@@ -92,7 +130,7 @@ function renderIdea(ideaData){
                           <p class="description">${ideaData.description}</p>
                           <button type="button" class="btn btn-primary like">Like</button>
                           <button type="button" class="btn btn-info edit">Edit Post</button>
-                          <button type="button" class="btn btn-primary">Delete</button>
+                          <button type="button" class="btn delete">Delete</button>
                           <button type="button" class='btn btn-info save-idea hidden'>Save Changes</button>
                           <button type="button" class='btn btn-danger cancel-edit hidden'>Cancel</button>
 
