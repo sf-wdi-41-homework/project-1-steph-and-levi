@@ -15,7 +15,7 @@ $(document).ready(function() {
         var formData = $(this).serialize();
         console.log(formData)
 
-        $.post('/loggedin', formData, function(idea) {
+        $.post('/api/ideas', formData, function(idea) {
             console.log(idea)
             renderIdea(idea);
         })

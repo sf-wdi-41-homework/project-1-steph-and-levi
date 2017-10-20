@@ -34,34 +34,31 @@ app.use(methodOverride(function(request, response) {
   }
 }));
 
-
-
-
-
 // HTML endpoints
 // app.get('/', function(req, res){
 //   res.sendFile('views/index.html' , { root : __dirname});
 // })
 
-
-
-
-// app.get('/loggedin', function(req, res){
-//   res.sendFile('views/loggedin.html', { root : __dirname});
-// })
-
+// Require the models directory in server.js
 var db = require('./models')
-//TODO: JSON api endpoints
-//view all IDEAS from the db on an api route
-app.get('/api/ideas', function(req, res){
-  console.log('in api/ideas route function')
-  db.Idea.find({}, function(err, allIdeas){
-    if(err){ console.log('there was an error getting ideas', err); }
-    res.json(allIdeas)
-  })
-});
+var controllers = require('./controllers')
+//ROUTES
 
-//Get an idea
+//JSON api endpoints
+
+//view all IDEAS from the db on an api route
+app.get('/api/ideas', controllers.ideas.index);
+
+//Create an idea
+app.post('/api/ideas', controllers.ideas.create);
+
+//Update an idea
+app.put('/api/ideas/:id', controllers.ideas.update);
+
+//Delete an idea
+app.delete('/api/ideas/:id', controllers.ideas.destroy)
+
+//Get an idea: using only sample data right now
 app.get('/api/ideas/:id', function(req, res){
   console.log('in api/ideas/:id route function')
   var index = req.params.id;
@@ -69,36 +66,6 @@ app.get('/api/ideas/:id', function(req, res){
   res.send(selection)
 })
 
-//Create an idea
-app.post('/loggedin', function(req, res){
-  var inputIdea = req.body;
-  db.Idea.create(inputIdea, function(err, idea){
-    if(err) {console.log('error', err);}
-    res.json(idea)
-  })
-})
-
-//Update an idea
-app.put('/api/ideas/:id', function(req, res){
-  db.Idea.findById(req.params.id, function(err, foundIdea){
-    if(err) { console.log('error updating idea', err); }
-    foundIdea.title = req.body.title;
-    foundIdea.description = req.body.description;
-    foundIdea.save(function(err, savedIdea){
-      if(err) { console.log("error saving idea", err); }
-      res.json(savedIdea);
-    })
-
-  })
-})
-//Delete an idea
-app.delete('/api/ideas/:id', function(req, res){
-  console.log('want to delete an idea!')
-  db.Idea.findByIdAndRemove(req.params.id, function(err, deletedIdea){
-    if(err) {console.log('error deleting idea', err);}
-    res.json(deletedIdea)
-  })
-})
 // Express settings
 app.set('view engine', 'ejs');
 app.set("views", __dirname + "/views");
