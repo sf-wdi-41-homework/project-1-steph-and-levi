@@ -12,8 +12,12 @@ function index(req, res){
 // create an idea
 function create(req, res){
   //get current user id
+  // var $CurrentUser = req.body._id
+  // console.log($CurrentUser)
   //create new idea
+  var userId = req.body.userId
   var inputIdea = req.body;
+  console.log();
   db.Idea.create(inputIdea, function(err, idea){
     if(err) {console.log('error', err);}
     //push new idea into user db

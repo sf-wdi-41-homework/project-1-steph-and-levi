@@ -11,7 +11,7 @@
                 <form class="idea-form" action="/loggedin" method="POST">
                     <input type="text" id="fname" name="title" placeholder="Name of Idea" required>
                     <textarea name="description" cols="40" rows="5" placeholder="Description of Idea" required></textarea>
-                    <input type="hidden" name="_id" value="<%=currentUser._id%>"/>
+                    <input type="hidden" name="userId" value="<%=currentUser._id%>"/>
                     <input type="submit" value="Submit">
                 </form>
             </div>
